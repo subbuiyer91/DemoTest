@@ -1,0 +1,56 @@
+import static java.lang.System.*
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: 'maven'
+
+repositories {
+  mavenCentral()
+           
+}
+
+buildscript {
+    dependencies {
+        // Serenity Gradle Plugin - Must match dependency versions below
+        classpath "net.serenity-bdd:serenity-gradle-plugin:2.0.2"
+    }
+    repositories {
+	mavenCentral()
+}
+}
+// For managed serenity version numbers. Must match plugin version above.
+ext {
+    serenityVersion = '2.0.2'
+}
+
+dependencies {
+    compile(
+            //Serenity Web Automation Libraries
+            "net.serenity-bdd:serenity-core:${serenityVersion}",
+            "net.serenity-bdd:serenity-junit:${serenityVersion}",
+            "net.serenity-bdd:serenity-screenplay-webdriver:${serenityVersion}",
+            'net.serenity-bdd:serenity-cucumber:1.9.7',
+          
+            'io.github.bonigarcia:webdrivermanager:3.7.0',
+                  
+            //JSON Libraries
+            'com.google.code.gson:gson:2.8.2',
+            'org.json:json:20180130',
+
+            // Assertions & Others
+            'org.assertj:assertj-core:3.10.0',
+            'io.codearte.jfairy:jfairy:0.5.9',
+            'ch.qos.logback:logback-classic:1.3.0-alpha4',
+            
+            
+    )
+}
+
+test {
+    testLogging.showStandardStreams = true
+ }
+
+
+gradle.startParameter.continueOnFailure = true
